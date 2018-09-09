@@ -1,0 +1,70 @@
+{
+  "name": "loadlab",
+  "version": "0.1.0",
+  "description": "Javascript Client for the LoadLab REST API",
+  "keywords": [
+    "npm-package",
+    "package",
+    "boilerplate",
+    "es6",
+    "es2015",
+    "load-testing",
+    "loadlab"
+  ],
+  "license": "MIT",
+  "author": "iMichael",
+  "homepage": "https://github.com/loadlab/javascript",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/loadlab/javascript"
+  },
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "babel": {
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ],
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "9.3.0"
+          }
+        }
+      ],
+      [
+        "stage-3"
+      ]
+    ]
+  },
+  "dependencies": {
+    "@babel/core": "^7.0.0-beta.39"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.39",
+    "@babel/node": "^7.0.0-beta.39",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-stage-3": "^7.0.0",
+    "babel-7-jest": "^21.3.3",
+    "babel-jest": "^22.2.2",
+    "babel-preset-stage-3": "^6.24.1",
+    "jest": "^22.2.2"
+  },
+  "jest": {
+    "verbose": true,
+    "bail": false,
+    "testURL": "http://localhost",
+    "collectCoverage": false,
+    "modulePathIgnorePatterns": [
+      "sandbox",
+      "node_modules"
+    ],
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
+  }
+}
