@@ -14,21 +14,23 @@ function ApiError(message, data, status) {
   this.response = response;
   this.message = message;
   this.status = status;
-  this.toString = function () {
-    return `${ this.message }\nResponse:\n${ isObject ? JSON.stringify(this.response, null, 2) : this.response }`;
-  };
+  /* eslint-disable no-unused-vars */
+  const toString = () => (
+    `${this.message}\nResponse:\n${isObject ? JSON.stringify(this.response, null, 2) : this.response}`
+  );
+  /* eslint-enable no-unused-vars */
 }
 
 
 class Resource {
-  PATH = null
-  BASE_URL = 'https://api.loadlab.co/v1'
+  static PATH = null
+  static BASE_URL = 'https://api.loadlab.co/v1'
 
   constructor(token, userOptions = {}) {
     const defaultOptions = {};
     const defaultHeaders = {
-      'Accept': 'application/json',
-      'Authorization': `Token ${token}`
+      Accept: 'application/json',
+      Authorization: `Token ${token}`
     };
     this.options = {
       // Merge options
@@ -46,9 +48,9 @@ class Resource {
     // Variable which will be used for storing response
     let response = null;
 
-    const url = this.BASE_URL + this.PATH
+    const url = this.BASE_URL + this.PATH;
 
-    return fetch(url, this.options).then(responseObject => {
+    return fetch(url, this.options).then((responseObject) => {
       // Saving response for later use in lower scopes
       response = responseObject;
 
@@ -69,25 +71,25 @@ class Resource {
     })
     // "parsedResponse" will be either text or javascript object depending if
     // "response.text()" or "response.json()" got called in the upper scope
-    .then(parsedResponse => {
-      // Check for HTTP error codes
-      if (response.status < 200 || response.status >= 300) {
-        // Throw error
-        throw parsedResponse;
-      }
+      .then((parsedResponse) => {
+        // Check for HTTP error codes
+        if (response.status < 200 || response.status >= 300) {
+          // Throw error
+          throw parsedResponse;
+        }
 
-      // Request succeeded
-      return parsedResponse;
-    })
-    .catch(error => {
-      // Throw custom API error
-      // If response exists it means HTTP error occured
-      if (response) {
-        throw new ApiError(`Request failed with status ${ response.status }.`, error, response.status);
-      } else {
-        throw new ApiError(error.toString(), null, 'REQUEST_FAILED');
-      }
-    });
+        // Request succeeded
+        return parsedResponse;
+      })
+      .catch((error) => {
+        // Throw custom API error
+        // If response exists it means HTTP error occurred
+        if (response) {
+          throw new ApiError(`Request failed with status ${response.status}.`, error, response.status);
+        } else {
+          throw new ApiError(error.toString(), null, 'REQUEST_FAILED');
+        }
+      });
   }
 }
 
@@ -106,10 +108,10 @@ class Sites extends Resource {
 
 class LoadLab {
   constructor(token) {
-    this.jobs = new Jobs(token)
-    this.plans = new Plans(token)
-    this.sites = new Sites(token)
+    this.jobs = new Jobs(token);
+    this.plans = new Plans(token);
+    this.sites = new Sites(token);
   }
 }
 
-export default LoadLab
+export default LoadLab;
