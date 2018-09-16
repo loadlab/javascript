@@ -1,6 +1,6 @@
 {
   "name": "loadlab",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "LoadLab Javascript API",
   "main": "./lib/index.js",
   "scripts": {
