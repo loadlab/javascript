@@ -1,6 +1,8 @@
 # LoadLab JS
 Javascript Client for the LoadLab REST API.
 
+[![CircleCI](https://circleci.com/gh/loadlab/javascript.svg?style=svg)](https://circleci.com/gh/loadlab/javascript)
+
 ## Setup
 
     $ npm i loadlab
