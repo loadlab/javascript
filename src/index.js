@@ -23,8 +23,8 @@ function ApiError(message, data, status) {
 
 
 class Resource {
-  static PATH = null
-  static BASE_URL = 'https://api.loadlab.co/v1'
+  PATH = null
+  BASE_URL = 'https://api.loadlab.co/v1'
 
   constructor(token, userOptions = {}) {
     const defaultOptions = {};
@@ -45,13 +45,10 @@ class Resource {
   }
 
   get = () => {
-    // Variable which will be used for storing response
     let response = null;
-
     const url = this.BASE_URL + this.PATH;
 
     return fetch(url, this.options).then((responseObject) => {
-      // Saving response for later use in lower scopes
       response = responseObject;
 
       // HTTP unauthorized
@@ -60,30 +57,18 @@ class Resource {
         // Maybe redirect to login page?
       }
 
-      // Check for error HTTP error codes
       if (response.status < 200 || response.status >= 300) {
-        // Get response as text
         return response.text();
       }
-
-      // Get response as json
       return response.json();
     })
-    // "parsedResponse" will be either text or javascript object depending if
-    // "response.text()" or "response.json()" got called in the upper scope
       .then((parsedResponse) => {
-        // Check for HTTP error codes
         if (response.status < 200 || response.status >= 300) {
-          // Throw error
           throw parsedResponse;
         }
-
-        // Request succeeded
         return parsedResponse;
       })
       .catch((error) => {
-        // Throw custom API error
-        // If response exists it means HTTP error occurred
         if (response) {
           throw new ApiError(`Request failed with status ${response.status}.`, error, response.status);
         } else {
